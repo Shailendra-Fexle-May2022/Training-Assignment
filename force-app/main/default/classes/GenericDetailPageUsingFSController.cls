@@ -1,0 +1,191 @@
+/**
+*
+*  Purpose          :   Controller class for "GenericDetailPageUsingFS" VF Page.
+Basically it is going to have server side needed code to build custom detail page on the basis of given id value in URL.
+*
+*  Created Date     :   02/11/2022
+*
+*  Created By       :   Shailendra Sharma
+*
+*  Revision Logs    :   V_1.0 - Created
+*
+**/
+public with sharing class GenericDetailPageUsingFSController {
+    
+    //Local variables
+    List<String> listOfFieldSetNames;
+    
+    //Variables used on the VF page
+    public Boolean displayFieldSetSections {get; set;}   
+    
+    public String formTitle {get; set;}
+    
+    public List<Schema.FieldSetMember> listOfFieldSet1FieldsDetails {get; set;}
+    
+    public List<Schema.FieldSetMember> listOfFieldSet2FieldsDetails {get; set;}
+    
+    public sObject sobjRecord { get; set; }
+    
+    public GenericDetailPageUsingFSController(){
+        
+        doInitialization();
+        
+        inIt();
+    }
+    
+    public void doInitialization(){
+        listOfFieldSetNames = new List<String>();
+        
+        listOfFieldSetNames = Utilities.getListOfValuesForCommaSeperateString(System.Label.GENERIC_DETAIL_PAGE_FIELD_SET_NAMES);
+        
+        displayFieldSetSections = false;
+        
+        formTitle = Constants.CHAR_BLANK;
+        
+        listOfFieldSet1FieldsDetails = new List<Schema.FieldSetMember>();
+        
+        listOfFieldSet2FieldsDetails = new List<Schema.FieldSetMember>();
+    }
+    
+    public void inIt(){
+        
+        try{
+            String recordId = Apexpages.currentpage().getparameters().get(Constants.URL_PARAMETER_NAME_ID);
+            
+            // ID Parameter is missing and having null/blank as value	 
+            if(String.isBlank(recordId)){
+                
+                ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,System.Label.ERROR_URL_PARAMETER_ID_MISSING));
+                
+                displayFieldSetSections = false;
+            }
+            else{
+                
+                // URL provided ID value is the valid record Id of salesforce of some object.
+                if(Utilities.isaValidateSalesforceID(recordId)){
+                    
+                    //Get valid SalesForce Sobject Type
+                    Schema.SObjectType sObjectType = Utilities.getObjectTypeOnBasisOfIdValue(recordId);
+                    
+                    if(sObjectType != null){
+                        
+                        //Get Object API Name
+                        String sObjectAPIName = Utilities.getSobjectAPIName(sObjectType);
+                        
+                        If(String.isNotBlank(sObjectAPIName)){
+                            
+                            formTitle = Utilities.getSobjectLabel(sObjectType) + ' Detail Page Form';
+                            
+                            Boolean tempVarFieldSetExists = true;
+                            
+                            String sOQLQueryFields = Constants.CHAR_BLANK;
+                            Integer i = 0;
+                         
+                            //Loop through field set names
+                            for(String fieldSetName : listOfFieldSetNames){
+
+                                List<Schema.FieldSetMember> fieldSetFieldsDetails = Utilities.readFieldSet(fieldSetName, sObjectAPIName);
+                              
+                                
+                                if(fieldSetFieldsDetails.size() > 0){
+                                    
+                                    sOQLQueryFields +=Utilities.buildSOQLFieldsLiteralForTheFieldSet(fieldSetFieldsDetails);
+                                }
+                               
+                                else{
+                                    tempVarFieldSetExists = false; 
+                                }  
+                                
+                                switch on i 
+                                {
+                                    when 0
+                                    {
+                                        listOfFieldSet1FieldsDetails = fieldSetFieldsDetails;
+                                    }	
+                                    when 1 
+                                    {
+                                    	listOfFieldSet2FieldsDetails = fieldSetFieldsDetails;    
+                                    }
+                                }
+                                i++;
+                            }
+
+                            //if any or both field sets doen't exists - add an error message on VF page
+                            if(tempVarFieldSetExists == false){
+                                
+                                ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, 'Field Set Does not exists'));
+                                
+                                displayFieldSetSections = false;
+                            }
+                            else{
+                                
+                                if(String.isNotBlank(sOQLQueryFields)){
+                                    
+                                    sOQLQueryFields = sOQLQueryFields.trim();
+                                    sOQLQueryFields = sOQLQueryFields.removeEnd(Constants.CHAR_COMMA);
+                                }
+                                sobjRecord = getRecordDetails(sOQLQueryFields, sObjectAPIName, recordId);
+                                
+                                if(sobjRecord != null){
+                                    
+                                    displayFieldSetSections = true;
+                                }
+                                else{
+                                    
+                                    ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'Unable to retrieve record details'));
+                                    
+                                    displayFieldSetSections = false;
+                                }
+                            }
+                            
+                        }
+                        else{
+                            
+                            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'Invalid Object Name'));
+                            
+                            displayFieldSetSections = false;
+                        }
+                    }
+                    else{
+                        
+                        ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'Invalid Sobject Type'));
+                        
+                        displayFieldSetSections = false;
+                    }
+                }
+                else{
+                    
+                    ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,System.Label.ERROR_INVALID_ID_VALUE)); 
+                    
+                    displayFieldSetSections = false;
+                }
+            }
+        }
+        catch(Exception ex){
+            
+            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,ex.getMessage()));
+            
+            displayFieldSetSections = false;
+        }
+    }
+    
+        private sObject getRecordDetails(String sOQLQueryFields, String objName, String recordId) 
+    {
+        String query = Constants.CHAR_BLANK;
+        
+        sObject sobj;
+        
+        if(String.isNotBlank(sOQLQueryFields) && String.isNotBlank(objName) && String.isNotBlank(recordId)) 
+        {
+            query = 'SELECT ' + sOQLQueryFields + ' FROM ' + objName + ' WHERE Id = :recordId';
+            
+            List<sObject> sObjList = Database.query(query);
+            
+            if(sObjList.size() > 0){
+                
+                return sObjList[0];
+            }
+        }
+        return sobj;
+    }
+}

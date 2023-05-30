@@ -1,0 +1,18 @@
+<!--
+*
+*  Purpose          :   VF Page to build custom detail page for Account object using standard controller.
+*
+*  Created Date     :   02/12/2022
+*
+*  Created By       :   Shailendra Sharma
+*
+*  Revision Logs    :   V_1.0 - Created
+*
+-->
+<apex:page sidebar="false" extensions="CustomDetailPageForAccountController_Ext" standardController="Account">
+    <apex:detail subject="{!account.id}" title="false" relatedList="false"/>
+       <apex:form >
+        <apex:inputField value="{!account.Name}"/> <p/>
+        <apex:commandButton value="Save" action="{!save}"/>
+    </apex:form>
+</apex:page>

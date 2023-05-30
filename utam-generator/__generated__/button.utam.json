@@ -1,0 +1,18 @@
+{
+    "shadow": {
+        "elements": [
+            {
+                "public": true,
+                "name": "button",
+                "type": "utam-lightning/pageObjects/button",
+                "selector": {
+                    "css": "lightning-button"
+                }
+            }
+        ]
+    },
+    "description": {
+        "author": "my team",
+        "text": ["Page Object: button"]
+    }
+}

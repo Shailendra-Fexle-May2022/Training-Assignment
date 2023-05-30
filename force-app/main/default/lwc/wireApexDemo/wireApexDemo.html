@@ -1,0 +1,23 @@
+<!--
+*
+*  Purpose          :   HTML Class  to import contact field using apex class method.
+*
+*  Created Date     :   06/12/2022
+*
+*  Created By       :   Shailendra Sharma
+*
+*  Revision Logs    :   V_1.0 - Created
+*
+-->
+<template>
+    <lightning-card title="Related Contacts" icon-name="custom:custom14">
+        <div style="height: 200px">
+            <!--lightningdata table-->
+            <lightning-datatable
+                                key-field= "id"
+                                data={data}
+                                columns={columns}>
+            </lightning-datatable>
+        </div> 
+    </lightning-card>   
+</template>

@@ -1,0 +1,39 @@
+<template>
+    <lightning-card title="LWC Lifecycle" icon-name="utility:people">
+
+        <template if:false={state.initDone} class="slds-is-relative">
+            <lightning-spinner alternative-text="Grand Parent Loading..."></lightning-spinner>
+        </template>
+
+        <template if:true={state.initDone}>
+
+            <lightning-layout vertical-align="center">
+
+                <lightning-layout-item size="12">
+                    <lightning-button label="Render in GP"  onclick={onchangeInGP}> </lightning-button>
+                </lightning-layout-item>
+
+            </lightning-layout>    
+
+            <lightning-layout vertical-align="start">
+    
+                <lightning-layout-item size="12">
+                    
+                    <div class="slds-box_small">
+                        
+                        <div class="slds-box slds-m-around_small">
+                            <c-parent1></c-parent1>
+                        </div>
+
+                        <div class="slds-box slds-m-around_small">
+                            <c-parent2></c-parent2>
+                        </div>
+
+                    </div>
+                </lightning-layout-item>
+                
+            </lightning-layout>
+        </template>  
+
+    </lightning-card>
+</template>

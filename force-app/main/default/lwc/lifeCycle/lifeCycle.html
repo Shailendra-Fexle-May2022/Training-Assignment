@@ -1,0 +1,64 @@
+<template>
+    <template if:false ={state.initDone} class="slds-is-relative">
+        <lightning-spinner alternative-text="LifeCycle Loading...">
+        </lightning-spinner>
+    </template>
+    
+    <template if:true={state.initDone}>
+
+            <lightning-card title="LifeCycle Component" icon-name="utility:people">
+
+                <div class="slds-align_absolute-center">
+
+                    <lightning-button variant="success" label="Kill Life"  onclick={disconnectComponent}></lightning-button>
+                
+                    <div class="slds-p-left_x-small"></div>
+
+                    <lightning-button variant="success" label="Kill Cycle-1"  onclick={disconnectCycle1}></lightning-button>
+
+                    <div class="slds-p-left_x-small"></div>
+
+                    <lightning-button variant="success" label="Kill Cycle-2"  onclick={disconnectCycle2}></lightning-button>
+
+                    <div class="slds-p-left_x-small"></div>
+
+                    <lightning-button variant="success" label="Kill Cycle-3"  onclick={disconnectCycle3}></lightning-button>
+
+                    <div class="slds-p-left_x-small"></div>
+
+                </div>
+
+                <template if:true={cardVisible}>
+
+                    <lightning-layout vertical-align="start">
+
+                        <lightning-layout-item size="12">
+                            
+                            <div class="slds-box_small">
+                                
+                                <div class="slds-box slds-m-around_small">
+                                    <template if:true={accounts}>
+                                        <template for:each={accounts} for:item="account">
+                                            <p key={account.Id}>{account.Name}</p>
+                                        </template>
+                                    </template>    
+                                </div>
+
+                                <div class="slds-box slds-m-around_small">
+                                    <c-life hide-grand-child={hideGrandChild1} hide-grand-child2={hideGrandChild2} hide-grand-child3={hideGrandChild3}></c-life>
+                                </div>
+
+                            </div>
+
+                        </lightning-layout-item>
+                        
+                    </lightning-layout>
+
+                </template>    
+
+            </lightning-card>
+        </template>
+
+    </template>
+
+</template>

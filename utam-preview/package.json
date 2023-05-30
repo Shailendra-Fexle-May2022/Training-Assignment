@@ -1,0 +1,40 @@
+{
+    "name": "utam-preview",
+    "license": "MIT",
+    "version": "0.0.1",
+    "publishConfig": {
+        "access": "public"
+    },
+    "type": "commonjs",
+    "main": "index.js",
+    "scripts": {
+        "compile": "utam -c utam-preview.config.js"
+    },
+    "files": [
+        "index.js",
+        "pageObjects/**/*.js",
+        "pageObjects/**/*.cjs",
+        "pageObjects/**/*.mjs",
+        "pageObjects/**/*.d.ts"
+    ],
+    "exports": {
+        ".": "./index.js",
+        "./pageObjects/*": {
+            "require": "./pageObjects/*.js",
+            "import": "./pageObjects/*.mjs"
+        },
+        "./utils/*": {
+            "require": "./utils/*.js",
+            "import": "./utils/*.mjs"
+        }
+    },
+    "devDependencies": {
+        "utam": "^1.6.0"
+    },
+    "volta": {
+        "extends": "../package.json"
+    },
+    "engines": {
+        "node": ">=14.15.4"
+    }
+}

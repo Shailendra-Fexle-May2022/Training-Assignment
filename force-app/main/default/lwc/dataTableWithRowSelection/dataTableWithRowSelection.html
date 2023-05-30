@@ -1,0 +1,20 @@
+<template>
+   
+    <lightning-button variant="error" title="click here" label= {onClickedButtonLabel} onclick= {handleClick}>
+    </lightning-button>
+    <template if:true={cardVisible}>
+        <lightning-input type="search" 
+                         onchange={handleChanged}
+                         label="Search" 
+                         value={searchKey}>
+        </lightning-input>
+        <lightning-card  variant="Narrow"  title="Data Table">
+            <lightning-datatable
+                key-field="id"
+                data={data}
+                columns={columnsList}
+                onrowaction={getSelectedRows}>
+            </lightning-datatable>
+        </lightning-card>
+    </template>   
+</template>

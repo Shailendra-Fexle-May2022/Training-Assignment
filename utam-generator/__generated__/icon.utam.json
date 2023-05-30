@@ -1,0 +1,18 @@
+{
+    "shadow": {
+        "elements": [
+            {
+                "public": true,
+                "name": "icon",
+                "type": "utam-lightning/pageObjects/icon",
+                "selector": {
+                    "css": "lightning-icon"
+                }
+            }
+        ]
+    },
+    "description": {
+        "author": "my team",
+        "text": ["Page Object: icon"]
+    }
+}

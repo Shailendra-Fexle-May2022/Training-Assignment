@@ -1,0 +1,36 @@
+<template>
+    <lightning-card title="Related Contacts Via Imperative Method" icon-name="custom:custom14">
+        <div style="height: 200px">
+            <!--lightningdata table-->
+            <lightning-datatable
+                                key-field= "id"
+                                data={data}
+                                columns={columns}>
+            </lightning-datatable>
+        </div> 
+    </lightning-card>>
+
+    <lightning-button variant="brand" title="click here" label="FillContactDeatilsTable" onclick={fillDataTable}>
+    </lightning-button> 
+
+    <lightning-card title="Check Condition" icon-name="custom:custom14">
+
+        <lightning-button variant="brand" title="click here" label={onClickedButtonLabel} onclick={handleOnClicked}>
+        </lightning-button>   
+
+    </lightning-card>> 
+
+    <template if:true={cardVisible}>
+        <lightning-card title="Click On Show Button">
+            {myName}
+        </lightning-card>
+    </template>
+
+    <lightning-card title="For:Each Loop" icon-name="custom:custom14">
+        <template if:true={records.data}>
+            <template for:each={records.data} for:item="item">
+               <h3 key={item.Id}>{item.Id} => {item.FirstName}</h3>
+            </template>
+        </template>
+    </lightning-card>    
+</template>

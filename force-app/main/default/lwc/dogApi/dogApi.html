@@ -1,0 +1,80 @@
+<template>
+
+    <template if:true={loadingSpinner}>
+        <lightning-spinner alternative-text="Loading" variant="inverse" size="medium"></lightning-spinner>
+    </template>
+
+    <lightning-card title={cardTitle}>
+
+        <!--Section/Container for Buttons-->
+        <!--Start From here-->
+        <lightning-layout multiple-rows>
+
+            <lightning-layout-item size={layoutSizeSmallButtons} padding="slds-p-right_small" small-device-size={layoutSizeSmallButtons} medium-device-size={layoutSizeMediumButtons} large-device-size={layoutSizeLargeButtons}>
+                <lightning-button variant="success" 
+                    label="Generate Random Dog Picture"
+                    onclick={handleClick}>
+                </lightning-button>
+            </lightning-layout-item>
+
+            <lightning-layout-item size={layoutSizeSmallButtons} padding="slds-p-right_small" small-device-size={layoutSizeSmallButtons} medium-device-size={layoutSizeMediumButtons} large-device-size={layoutSizeLargeButtons}>
+                <lightning-button variant="success" 
+                    label="Generate Random Dog Picture JS"
+                    onclick={handleClick2}>
+                </lightning-button>
+            </lightning-layout-item>
+            
+            <lightning-layout-item size={layoutSizeSmallButtons} padding="slds-p-right_small" small-device-size={layoutSizeSmallButtons} medium-device-size={layoutSizeMediumButtons} large-device-size={layoutSizeLargeButtons}>
+                <lightning-button variant="success" 
+                    label="Make Multiple Callouts"
+                    onclick={handleClick3}>
+                </lightning-button>
+            </lightning-layout-item>    
+
+        </lightning-layout>
+
+        <!--Section/Container for Buttons-->
+        <!--Ends Here-->
+
+        <!--Section/Container for Images-->
+        <!--Start From here-->
+        <lightning-layout multiple-rows>
+
+            <!--L : {layoutSizeLarge}
+            M : {layoutSizeMedium}
+            S : {layoutSizeSmall}
+            LB : {layoutSizeSmallButtons}
+            MB : {layoutSizeMediumButtons}
+            SB : {layoutSizeMediumButtons}-->
+
+            <lightning-layout-item size={layoutSizeSmall} padding="around-small" small-device-size={layoutSizeSmall} medium-device-size={layoutSizeMedium} large-device-size={layoutSizeLarge}>
+                
+                <template if:true={imageReady}>
+                    <img src={pictureUrl}/>
+                </template>
+
+                <template if:false={imageReady}>
+                    IMAGE 1 Placeholder
+                </template>
+
+            </lightning-layout-item>
+
+            <lightning-layout-item size={layoutSizeSmall} padding="around-small" small-device-size={layoutSizeSmall} medium-device-size={layoutSizeMedium} large-device-size={layoutSizeLarge}>
+                
+                <template if:true={imageReady2}>
+                    <img src={secondPictureUrl}/>
+                </template>
+
+                <template if:false={imageReady2}>
+                    IMAGE 2 Placeholder
+                </template>
+
+            </lightning-layout-item>
+
+        </lightning-layout>    
+
+        <!--Section/Container for Images-->
+        <!--Ends Here-->
+
+    </lightning-card>
+</template>

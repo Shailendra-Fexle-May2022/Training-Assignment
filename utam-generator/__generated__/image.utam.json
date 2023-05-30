@@ -1,0 +1,40 @@
+{
+    "shadow": {
+        "elements": [
+            {
+                "name": "title",
+                "type": [],
+                "selector": {
+                    "css": ".slds-image__title"
+                },
+                "elements": [
+                    {
+                        "name": "titleText",
+                        "type": [],
+                        "selector": {
+                            "css": ".slds-image__text"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "methods": [
+        {
+            "name": "getTitleTextContent",
+            "compose": [
+                {
+                    "element": "titleText",
+                    "apply": "getText"
+                }
+            ],
+            "description": {
+                "text": ["method getTitleTextContent", "get text for my field"]
+            }
+        }
+    ],
+    "description": {
+        "author": "my team",
+        "text": ["Page Object: image"]
+    }
+}

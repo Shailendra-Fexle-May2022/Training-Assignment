@@ -1,0 +1,31 @@
+<template>
+    <lightning-card title="LWC Life" icon-name="utility:people">
+
+        <template if:true={state.initDone}>
+
+            <lightning-layout vertical-align="start">
+    
+                <lightning-layout-item size="12">
+                    
+                    <div class="slds-box_small">
+                        
+                        <div class="slds-box slds-m-around_small" if:true={hideGrandChild}>
+                            <c-cycle1></c-cycle1>
+                        </div>
+
+                        <div class="slds-box slds-m-around_small" if:true={hideGrandChild2}>
+                            <c-cycle2 hide-grand-child2={hideGrandChild2}></c-cycle2>
+                        </div>
+
+                        <div class="slds-box slds-m-around_small" if:true={hideGrandChild3}>
+                            <c-cycle3 hide-grand-child3={hideGrandChild3}></c-cycle3>
+                        </div>
+
+                    </div>
+                </lightning-layout-item>
+                
+            </lightning-layout>
+        </template>  
+
+    </lightning-card>
+</template>

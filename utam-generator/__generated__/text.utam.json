@@ -1,0 +1,18 @@
+{
+    "shadow": {
+        "elements": [
+            {
+                "public": true,
+                "name": "formattedRichText",
+                "type": "utam-lightning/pageObjects/formattedRichText",
+                "selector": {
+                    "css": "lightning-formatted-rich-text"
+                }
+            }
+        ]
+    },
+    "description": {
+        "author": "my team",
+        "text": ["Page Object: text"]
+    }
+}

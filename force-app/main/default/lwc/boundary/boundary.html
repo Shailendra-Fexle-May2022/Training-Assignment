@@ -1,0 +1,34 @@
+<template>
+    <template if:false={state.initDone} class="slds-is-relative">
+        <lightning-spinner alternative-text="Boundary Loading...">
+        </lightning-spinner>
+    </template>
+    
+    <template if:true={state.initDone}>
+    
+        <template if:true={state.errorExists}>
+            ERROR :: {errors}
+        </template>
+    
+        <template if:false={state.errorExists}>
+            <lightning-card title="Boundary Component" icon-name="utility:people">
+
+                <lightning-layout vertical-align="start">
+
+                    <lightning-layout-item size="12">
+                        
+                        <div class="slds-box_small">
+                            
+                            <div class="slds-box slds-m-around_small">
+                                <c-grand-parent></c-grand-parent>
+                            </div>
+
+                        </div>
+                    </lightning-layout-item>
+                    
+                </lightning-layout>
+
+            </lightning-card>
+        </template>
+    </template>
+</template>

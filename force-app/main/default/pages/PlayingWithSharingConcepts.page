@@ -1,0 +1,35 @@
+<!---
+*
+*  Purpose          :   Page to have with/without sharing based concept demonstration.
+*
+*  Created Date     :   10/06/2022
+*
+*  Created By       :   Shailendra Sharma
+*
+*  Revision Logs    :   V_1.0 - Created
+*
+---->
+<apex:page standardController="School__c" extensions="PlayingWithSharingConcepts" lightningStylesheets="true" 
+           standardStylesheets="true" sidebar="false">
+    <h1>
+        OUTER CLASS - No of Schools --> {!noOfSchools}
+   	</h1>
+    
+    <Br></BR>
+    <apex:repeat value="{!listOfSchools}" var="sch">
+        <apex:outputText value="{!sch.Name}"/><br/>
+    </apex:repeat>
+
+	<Br></BR>
+	<Br></BR>
+
+	<h1>
+        INNER CLASS - No of Schools --> {!playInnerClass.noOfSchls}
+   	</h1>
+    
+    <Br></BR>
+    <apex:repeat value="{!playInnerClass.listOfSchls}" var="schInner">
+        <apex:outputText value="{!schInner.Name}"/><br/>
+    </apex:repeat>
+    
+</apex:page>

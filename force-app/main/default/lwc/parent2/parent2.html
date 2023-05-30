@@ -1,0 +1,46 @@
+<template>
+      <lightning-card title="Parent 2">
+
+        <template if:false={state.initDone} class="slds-is-relative">
+            <lightning-spinner alternative-text="Parent 2 Loading...">
+            </lightning-spinner>
+        </template>
+
+        <template if:true={state.initDone}>
+
+            <lightning-layout vertical-align="start">
+    
+                <lightning-layout-item size="12">
+                    
+                    <div class="slds-box_small">
+                        
+                        <div class="slds-box slds-m-around_small">
+                            <c-child2></c-child2>
+                        </div>
+
+                    </div>
+
+                    <div class="slds-box_small">
+                        
+                        <div class="slds-box slds-m-around_small">
+                            <c-child3></c-child3>
+                        </div>
+
+                    </div>
+
+                    <div class="slds-box_small">
+                        
+                        <div class="slds-box slds-m-around_small">
+                            <c-child4></c-child4>
+                        </div>
+
+                    </div>
+
+
+                </lightning-layout-item>
+                
+            </lightning-layout>
+        </template>
+    
+    </lightning-card>
+</template>

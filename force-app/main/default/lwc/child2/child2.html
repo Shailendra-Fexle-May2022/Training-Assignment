@@ -1,0 +1,29 @@
+<template>
+     <lightning-card title="Child 2">
+
+        <template if:false={state.initDone} class="slds-is-relative">
+            <lightning-spinner alternative-text="Child 2 Loading...">
+            </lightning-spinner>
+        </template>
+
+        <template if:true={state.initDone}>
+
+            <lightning-layout vertical-align="start">
+    
+                <lightning-layout-item size="12">
+                    
+                    <div class="slds-box_small">
+                        
+                        <div class="slds-box slds-m-around_small">
+                            Child 2 - Children will come here (if any)
+                        </div>
+
+                    </div>
+
+                </lightning-layout-item>
+                
+            </lightning-layout>
+        </template>
+        
+    </lightning-card>
+</template>
